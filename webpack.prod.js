@@ -2,9 +2,12 @@ const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
-    mode: "production", // Use production mode to enable optimizations
-    devtool: "source-map", // Use source-map for better debugging in production
+    mode: "production",
+    devtool: "source-map", // Detailed source maps for production debugging
     optimization: {
-        minimize: true, // Minimize the output for production
+        minimize: true, // Enable minification
+        splitChunks: {
+            chunks: "all", // Split vendor and application code for caching
+        },
     },
 });
