@@ -6,7 +6,6 @@ const loadContent = () => {
 
     addTask.addEventListener("click", (e) => {
         showForm();
-        console.log("TEST");
     });
 };
 

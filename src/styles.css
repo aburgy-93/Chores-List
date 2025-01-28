@@ -31,7 +31,18 @@ div#content {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
+    background-color: rgba(0, 0, 0, 0.308);
     z-index: 1000; /* Ensure it's on top */
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Horizontally center children */
+    align-items: center; /* Vertically center children */
+}
+
+#form-div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
 }
