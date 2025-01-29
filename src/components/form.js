@@ -1,3 +1,76 @@
+function createFormTitle(titleType, titleText, titleId) {
+    const title = document.createElement(titleType);
+    title.setAttribute("id", titleId);
+    title.innerHTML = titleText;
+
+    return title;
+}
+
+function createLabelWithInput(
+    labelText,
+    inputId,
+    inputType = "text",
+    elementClass = "div"
+) {
+    const div = document.createElement("div");
+    div.classList.add(elementClass);
+
+    const label = document.createElement("label");
+    label.innerHTML = labelText;
+
+    const input = document.createElement("input");
+    input.setAttribute("id", inputId);
+    input.setAttribute("type", inputType);
+
+    div.appendChild(label);
+    div.appendChild(input);
+
+    return div;
+}
+
+function createSelectDropdown(
+    labelText,
+    selectId,
+    options,
+    elementClass = "div"
+) {
+    const div = document.createElement("div");
+    div.classList.add(elementClass);
+
+    const label = document.createElement("label");
+    label.innerHTML = labelText;
+
+    const select = document.createElement("select");
+    select.setAttribute("id", selectId);
+
+    options.forEach((option) => {
+        const opt = new Option(option.text, option.value);
+        select.add(opt);
+    });
+
+    div.appendChild(label);
+    div.appendChild(select);
+
+    return div;
+}
+
+function addButton(inputType, inputId, inputText) {
+    const btn = document.createElement("input");
+    btn.setAttribute("id", inputId);
+    btn.setAttribute("type", inputType);
+    btn.value = inputText;
+
+    return btn;
+}
+
+function closeModal(formDiv, overlay) {
+    const closeModalBtn = formDiv.querySelector(".btn-close-modal");
+    closeModalBtn.addEventListener("click", () => {
+        formDiv.remove();
+        overlay.remove();
+    });
+}
+
 const form = function () {
     // Form
     const formDiv = document.createElement("form");
@@ -7,78 +80,55 @@ const form = function () {
     const closeModalBtn = document.createElement("span");
     closeModalBtn.classList.add("btn-close-modal");
     closeModalBtn.innerHTML = "X";
-    formDiv.appendChild(closeModalBtn);
 
     // Create Chore task title
-    const formTitle = document.createElement("h2");
-    formTitle.setAttribute("id", "form-title");
-    formTitle.innerHTML = "Create Task";
+    const formTitle = createFormTitle("h2", "Create Task", "form-title");
     formDiv.appendChild(formTitle);
 
     // Chore title
-    const choreTitleDiv = document.createElement("div");
-    choreTitleDiv.classList.add("chore-title");
-    formDiv.appendChild(choreTitleDiv);
-
-    const choreTitle = document.createElement("label");
-    choreTitle.innerHTML = "Title";
-
-    const titleChore = document.createElement("input");
-    titleChore.setAttribute("id", "title-chore");
-
-    choreTitleDiv.appendChild(choreTitle);
-    choreTitleDiv.appendChild(titleChore);
+    const choreFormTitle = createLabelWithInput(
+        "Title",
+        "title-chore",
+        undefined,
+        "chore-title"
+    );
 
     // Description div for chore
-    const choreDescriptionDiv = document.createElement("div");
-    choreDescriptionDiv.classList.add("chore-description");
-    formDiv.appendChild(choreDescriptionDiv);
-
-    const descriptionTitle = document.createElement("label");
-    descriptionTitle.innerHTML = "Description";
-
-    const descriptionChore = document.createElement("input");
-    descriptionChore.setAttribute("id", "description-chore");
-
-    choreDescriptionDiv.appendChild(descriptionTitle);
-    choreDescriptionDiv.appendChild(descriptionChore);
+    const choreDescriptionDiv = createLabelWithInput(
+        "Description",
+        "description-chore",
+        undefined,
+        "chore-description"
+    );
 
     // create div to hold date and priority
     const flexDiv = document.createElement("div");
-    formDiv.appendChild(flexDiv);
 
     // add date to form
-    const dateDiv = document.createElement("div");
-    const dateTitle = document.createElement("label");
-    dateTitle.innerHTML = "Date";
-
-    const date = document.createElement("input");
-    date.setAttribute("type", "date");
-    date.setAttribute("id", "date-task");
-
-    dateDiv.appendChild(dateTitle);
-    dateDiv.appendChild(date);
+    const dateDiv = createLabelWithInput("Date", "date-task", "date");
 
     // add priority select and options to form
-    const priorityDiv = document.createElement("div");
-    flexDiv.appendChild(dateDiv);
-    flexDiv.appendChild(priorityDiv);
-    const priorityTitle = document.createElement("label");
-    priorityTitle.innerHTML = "Priority";
+    const priorityOptions = [
+        { text: "Low", value: "low" },
+        { text: "Medium", value: "medium" },
+        { text: "High", value: "high" },
+    ];
 
-    const priority = document.createElement("select");
-    priority.add(new Option("Low", "low"));
-    priority.add(new Option("Medium", "medium"));
-    priority.add(new Option("High", "high"));
-
-    priorityDiv.appendChild(priorityTitle);
-    priorityDiv.appendChild(priority);
+    const priorityDiv = createSelectDropdown(
+        "Priority",
+        "options",
+        priorityOptions
+    );
 
     // add submit button to form
-    const submit = document.createElement("input");
-    submit.setAttribute("type", "submit");
-    submit.setAttribute("id", "btn-submit-task");
-    submit.value = "submit";
+    const submit = addButton("submit", "btn-submit-task", "Submit");
+
+    formDiv.appendChild(closeModalBtn);
+    formDiv.appendChild(choreFormTitle);
+    formDiv.appendChild(choreDescriptionDiv);
+    formDiv.appendChild(flexDiv);
+    flexDiv.appendChild(dateDiv);
+    flexDiv.appendChild(priorityDiv);
     formDiv.appendChild(submit);
 
     return formDiv;
@@ -91,18 +141,16 @@ export function showForm() {
     overlay.setAttribute("id", "overlay");
 
     // Add click event listener to close overlay if clicked outside of form
-    overlay.addEventListener("click", (e) => {
-        overlay.remove();
-    });
+    overlay.addEventListener("click", () => overlay.remove());
 
     // Create and append form
     const formDiv = form();
     overlay.appendChild(formDiv);
 
     // Prevent overlay from closing when clicking inside the form
-    formDiv.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
+    formDiv.addEventListener("click", (e) => e.stopPropagation());
+
+    closeModal(formDiv, overlay);
 
     // Append overlay to the document body
     document.body.appendChild(overlay);
