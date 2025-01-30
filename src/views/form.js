@@ -1,3 +1,6 @@
+import { FormData } from "../model/formData";
+import { handleFormSubmit } from "../controller/formController";
+
 function createFormTitle(titleType, titleText, titleId) {
     const title = document.createElement(titleType);
     title.setAttribute("id", titleId);
@@ -64,7 +67,7 @@ function addButton(inputType, inputId, inputText) {
 }
 
 function closeModal(formDiv, overlay) {
-    const closeModalBtn = formDiv.querySelector(".btn-close-modal");
+    const closeModalBtn = formDiv.querySelector("#btn-close-modal");
     closeModalBtn.addEventListener("click", () => {
         formDiv.remove();
         overlay.remove();
@@ -75,15 +78,15 @@ const form = function () {
     // Form
     const formDiv = document.createElement("form");
     formDiv.setAttribute("id", "form-div");
+    formDiv.setAttribute("type", "submit");
 
     // close button
     const closeModalBtn = document.createElement("span");
-    closeModalBtn.classList.add("btn-close-modal");
+    closeModalBtn.setAttribute("id", "btn-close-modal");
     closeModalBtn.innerHTML = "X";
 
     // Create Chore task title
     const formTitle = createFormTitle("h2", "Create Task", "form-title");
-    formDiv.appendChild(formTitle);
 
     // Chore title
     const choreFormTitle = createLabelWithInput(
@@ -123,7 +126,9 @@ const form = function () {
     // add submit button to form
     const submit = addButton("submit", "btn-submit-task", "Submit");
 
+    // append it to the form
     formDiv.appendChild(closeModalBtn);
+    formDiv.appendChild(formTitle);
     formDiv.appendChild(choreFormTitle);
     formDiv.appendChild(choreDescriptionDiv);
     formDiv.appendChild(flexDiv);
@@ -149,6 +154,9 @@ export function showForm() {
 
     // Prevent overlay from closing when clicking inside the form
     formDiv.addEventListener("click", (e) => e.stopPropagation());
+
+    // use controller for handling form submission
+    formDiv.addEventListener("submit", handleFormSubmit);
 
     closeModal(formDiv, overlay);
 

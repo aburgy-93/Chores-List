@@ -1,5 +1,5 @@
 import "./styles.css";
-import { showForm } from "./components/form";
+import { showForm } from "./views/form";
 
 const loadContent = () => {
     const addTask = document.querySelector("#btn-addTask");
