@@ -1,3 +1,5 @@
+"use strict";
+
 class Projects {
     constructor() {
         this.choresList = [];

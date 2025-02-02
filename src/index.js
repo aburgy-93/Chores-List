@@ -1,5 +1,7 @@
-import loadContent from "./loadContent";
+"use strict";
+
+import init from "./controller/controller";
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadContent();
+    init();
 });

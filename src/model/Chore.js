@@ -1,3 +1,5 @@
+"use strict";
+
 import Projects from "./Projects";
 
 class Chore extends Projects {

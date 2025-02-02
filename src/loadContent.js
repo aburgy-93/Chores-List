@@ -1,12 +1,13 @@
-import "./styles.css";
-import { showForm } from "./views/form";
+"use strict";
+// import "./styles.css";
+// import { showForm } from "./views/form";
 
-const loadContent = () => {
-    const addTask = document.querySelector("#btn-addTask");
+// const loadContent = () => {
+//     const addTask = document.querySelector("#btn-addTask");
 
-    addTask.addEventListener("click", (e) => {
-        showForm();
-    });
-};
+//     addTask.addEventListener("click", (e) => {
+//         showForm();
+//     });
+// };
 
-export default loadContent;
+// export default loadContent;

@@ -1,3 +1,5 @@
+"use strict";
+
 import { FormData } from "../model/formData";
 
 export function handleFormSubmit(e) {

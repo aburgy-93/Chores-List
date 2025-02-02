@@ -1,3 +1,5 @@
+"use strict";
+
 import Chore from "./Chore";
 const chore = new Chore();
 
