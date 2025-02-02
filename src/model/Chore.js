@@ -1,20 +1,37 @@
-class Chore {
+import Projects from "./Projects";
+
+class Chore extends Projects {
     constructor() {
-        this.chores = [];
+        super();
+        // TEMPORARY
+        // will later get the choresList from Projects class to add chores to it
+        this.choresList = [];
     }
 
-    createChore(choreTitle, choreDescription, choreDate, chorePriority) {
+    createChore(
+        projectId,
+        choreTitle,
+        choreDescription,
+        choreDate,
+        chorePriority
+    ) {
         const chore = {
-            id: this.chores.length > 0 ? this.chores.length + 1 : 1,
+            id: this.choresList.length > 0 ? this.choresList.length + 1 : 1,
+            // TEMPORARY
+            projectId: 1,
             choreTitle: choreTitle,
             choreDescription: choreDescription,
             choreDate: choreDate,
             chorePriority: chorePriority,
         };
 
-        this.chores.push(chore);
+        this.addChoreToChoreList(chore);
 
-        console.log(this.chores);
+        console.log(this.choresList);
+    }
+
+    addChoreToChoreList(chore) {
+        this.choresList.push(chore);
     }
 
     // filter chores ?
